@@ -21,6 +21,18 @@
     font-size: 11.9px;
 }
 
+/* Login Modal */
+
+#signUp {
+    text-align: center;
+    margin-top: 10px;
+    padding-bottom: 25px;
+}
+.signUpDiv {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
 /* Buttons */
 .cc-button-primary {
     display: inline-block;
@@ -256,6 +268,19 @@ input .form-control:first-child {
     font-size: 14px;
 }
 
+/* h elements h1, h2, h3, h4 */
+
+h4 {
+    color: inherit;
+    font-family: inherit;
+    font-size: 1.25rem;
+    font-style: inherit;
+    font-weight: bold;
+    line-height: 150%;
+    text-align: inherit;
+    text-decoration: inherit;
+}
+
 
 /* misc */
 .pull-right {
@@ -274,4 +299,14 @@ input .form-control:first-child {
     padding-bottom: 35px;
     position: relative;
     z-index: 1;
+}
+.forgotPasswordTextLink {
+    font-size: .1em;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-top: 1px solid #eee;
 }

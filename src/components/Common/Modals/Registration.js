@@ -5,18 +5,6 @@ import TextInput from "../TextInput";
 import { Row } from "react-bootstrap";
 
 const Registration = ({ show, handleShow, handleClose }) => {
-  const radioOptions = [
-    {
-      name: "New Account",
-      key: "newAccount",
-      value: "Create a new business account"
-    },
-    {
-      name: "Existing Account",
-      key: "existingAccount",
-      value: "Join an existing business account"
-    }
-  ];
   return (
     <>
       <Modal
