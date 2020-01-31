@@ -7,5 +7,5 @@ npm install
 
 npm run start
 
-NPM install will download all the necessary dependencies and "npm run start" will start the project locally at http://localhost:3000/category
+NPM install will download all the necessary dependencies and "npm run start" will start the project locally at http://localhost:3000/
 

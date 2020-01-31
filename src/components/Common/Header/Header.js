@@ -1,17 +1,19 @@
-import React, { useState } from "../../../../node_modules/react";
+import React, { useState } from "react";
+// eslint-disable-next-line import/no-named-as-default
 import Login from "../Modals/Login";
 import Registration from "../Modals/Registration";
-import PropTypes from "../../../../node_modules/prop-types";
-import Row from "../../../../node_modules/react-bootstrap/Row";
-import { FontAwesomeIcon } from "../../../../node_modules/@fortawesome/react-fontawesome";
-import { faShoppingCart } from "../../../../node_modules/@fortawesome/free-solid-svg-icons";
+import propTypes from "prop-types";
+import Row from "react-bootstrap/Row";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import HeaderLogo from "./HeaderLogo";
 import cloudLake from "../../../../public/images/cloudlake.png";
 import bottomLine from "../../../../public/images/header-btm-line.png";
 import SearchInput from "../SearchInput";
 import DropdownNavigation from "./DropdownNavigation";
 
-const Header = () => {
+
+const Header = ({ loggedIn, setLoginStatus, currentUser, setCurrentUser }) => {
   const [showLogin, setShowLogin] = useState(false);
   const [showReg, setShowReg] = useState(false);
   const [showForgot, setShowForgot] = useState(false);
@@ -19,7 +21,10 @@ const Header = () => {
   const handleShow = modal => {
     switch (modal) {
       case "login":
-        setShowLogin(true);
+        // set this so the login modal doesn't open when the
+        // user is logged in. My account page would take over this
+        // functionality
+        if (!loggedIn) setShowLogin(true);
         break;
       case "Reg":
         setShowReg(true);
@@ -53,6 +58,11 @@ const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    setLoginStatus(false)
+    setCurrentUser({});
+  }
+
   return (
     <div className="header-background">
       <Row>
@@ -62,16 +72,24 @@ const Header = () => {
             href="#"
             onClick={() => handleShow("login")}
           >
-            Log In
+            {loggedIn ? `Welcome ${currentUser.firstName}` : "Log In"}
           </a>
           |
-          <a
-            style={{ marginLeft: "3px" }}
-            href="#"
-            onClick={() => handleShow("Reg")}
-          >
-            Create Account
-          </a>
+          {loggedIn ? (
+            <a
+              style={{ marginLeft: "3px" }}
+              href="#"
+              onClick={() => handleLogout()}
+            >Log Out</a>
+          ) : (
+            <a
+              style={{ marginLeft: "3px" }}
+              href="#"
+              onClick={() => handleShow("Reg")}
+            >
+              Create Account
+            </a>
+          )}
         </div>
         <div className="col-md-1 offset-md-1 text-center">EN</div>
       </Row>
@@ -106,18 +124,24 @@ const Header = () => {
         </div>
       </Row>
       <Row>
-          <div className="col-md-12">
-              <div className="bottom-line" style={{background: `url(${bottomLine})`}} />
-          </div>
+        <div className="col-md-12">
+          <div
+            className="bottom-line"
+            style={{ background: `url(${bottomLine})` }}
+          />
+        </div>
       </Row>
       <Row>
-          <DropdownNavigation />
+        <DropdownNavigation />
       </Row>
       <Login
         show={showLogin}
         handleShow={handleShow}
         handleClose={handleClose}
         showForgot={showForgot}
+        setCurrentUser={setCurrentUser}
+        currentUser={currentUser}
+        setUserLoggedIn={setLoginStatus}
       />
       <Registration
         show={showReg}
@@ -128,10 +152,14 @@ const Header = () => {
   );
 };
 
-Header.PropTypes = {
-  showLogin: PropTypes.bool,
-  handleShow: PropTypes.func,
-  handleClose: PropTypes.func
+Header.propTypes = {
+  showLogin: propTypes.bool,
+  handleShow: propTypes.func,
+  handleClose: propTypes.func,
+  loggedIn: propTypes.bool,
+  setLoginStatus: propTypes.func,
+  currentUser: propTypes.object,
+  setCurrentUser: propTypes.func
 };
 
 export default Header;

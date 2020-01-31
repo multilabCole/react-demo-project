@@ -2,8 +2,10 @@
   "name": "VSG-React-Training",
   "description": "Training project for learning React",
   "scripts": {
-    "start": "run-p start:dev",
-    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000"
+    "start": "run-p start:dev start:api",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js  --port 3000",
+    "prestart:api": "node tools/createMockDb.js",
+    "start:api": "node tools/apiServer.js"
   },
   "jest": {},
   "dependencies": {
